@@ -10,7 +10,9 @@ import {
   Layers, 
   Settings, 
   User, 
-  Users
+  Users,
+  PieChart,
+  FolderOpen
 } from 'lucide-react';
 
 interface SidebarItem {
@@ -41,19 +43,29 @@ const items: SidebarItem[] = [
     icon: <User className="h-5 w-5" />
   },
   {
+    title: "Accounting & Tax",
+    href: "/accounting",
+    icon: <FileText className="h-5 w-5" />
+  },
+  {
     title: "Calendar",
     href: "/calendar",
     icon: <Calendar className="h-5 w-5" />
   },
   {
-    title: "Reports",
-    href: "/reports",
+    title: "Smart Dashboard",
+    href: "/smart-dashboard",
     icon: <BarChart className="h-5 w-5" />
   },
   {
     title: "Documents",
     href: "/documents",
-    icon: <FileText className="h-5 w-5" />
+    icon: <FolderOpen className="h-5 w-5" />
+  },
+  {
+    title: "Reports",
+    href: "/reports",
+    icon: <PieChart className="h-5 w-5" />
   },
   {
     title: "Settings",

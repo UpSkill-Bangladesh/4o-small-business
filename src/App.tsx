@@ -13,6 +13,9 @@ import ERP from "./pages/modules/ERP";
 import CRM from "./pages/modules/CRM";
 import HR from "./pages/modules/HR";
 import Calendar from "./pages/modules/Calendar";
+import Accounting from "./pages/modules/Accounting";
+import SmartDashboard from "./pages/modules/SmartDashboard";
+import Documents from "./pages/modules/Documents";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -36,6 +39,9 @@ const App = () => (
           <Route path="/crm" element={<CRM />} />
           <Route path="/hr" element={<HR />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/accounting" element={<Accounting />} />
+          <Route path="/smart-dashboard" element={<SmartDashboard />} />
+          <Route path="/documents" element={<Documents />} />
           <Route path="/settings" element={<Settings />} />
           
           <Route path="*" element={<NotFound />} />
