@@ -15,7 +15,7 @@ import HR from "./pages/modules/HR";
 import Calendar from "./pages/modules/Calendar";
 import Accounting from "./pages/modules/accounting";
 import SmartDashboard from "./pages/modules/SmartDashboard";
-import Documents from "./pages/modules/Documents";
+import Documents from "./pages/modules/documents";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 

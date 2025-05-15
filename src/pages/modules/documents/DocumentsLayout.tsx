@@ -1,18 +1,16 @@
 
 import React, { useState } from 'react';
-import { FileText, Menu } from 'lucide-react';
+import { Menu, Upload } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Sidebar from '@/components/layout/Sidebar';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import QuickStats from './QuickStats';
 
-interface AccountingLayoutProps {
+interface DocumentsLayoutProps {
   children: React.ReactNode;
   title: string;
 }
 
-const AccountingLayout: React.FC<AccountingLayoutProps> = ({ children, title }) => {
+const DocumentsLayout: React.FC<DocumentsLayoutProps> = ({ children, title }) => {
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
@@ -45,35 +43,19 @@ const AccountingLayout: React.FC<AccountingLayoutProps> = ({ children, title }) 
           
           <div className="flex items-center space-x-4">
             <Button>
-              <FileText className="h-4 w-4 mr-2" />
-              Generate Report
+              <Upload className="h-4 w-4 mr-2" />
+              Upload
             </Button>
           </div>
         </header>
         
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto p-6">
-          {/* Quick Stats */}
-          <QuickStats />
-          
-          {/* Income & Expense Section */}
-          <div className="mt-8">
-            <Tabs defaultValue="income-expense" className="space-y-6">
-              <div className="flex justify-between items-center">
-                <TabsList>
-                  <TabsTrigger value="income-expense">Income & Expenses</TabsTrigger>
-                  <TabsTrigger value="tax-deadlines">Tax Deadlines</TabsTrigger>
-                  <TabsTrigger value="reports">Reports</TabsTrigger>
-                </TabsList>
-              </div>
-              
-              {children}
-            </Tabs>
-          </div>
+          {children}
         </main>
       </div>
     </div>
   );
 };
 
-export default AccountingLayout;
+export default DocumentsLayout;
