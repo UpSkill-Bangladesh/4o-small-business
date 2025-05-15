@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import { CustomBadge } from "@/components/ui/custom-badge";
 import { Menu } from "lucide-react";
 import Sidebar from '@/components/layout/Sidebar';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -115,13 +115,13 @@ const ERP: React.FC = () => {
                           <TableCell>{item.category}</TableCell>
                           <TableCell>{item.quantity}</TableCell>
                           <TableCell>
-                            <Badge variant={
+                            <CustomBadge variant={
                               item.status === "In Stock" ? "default" :
                               item.status === "Low Stock" ? "warning" : 
                               "destructive"
                             }>
                               {item.status}
-                            </Badge>
+                            </CustomBadge>
                           </TableCell>
                           <TableCell>
                             <Button variant="ghost" size="sm">
@@ -150,9 +150,9 @@ const ERP: React.FC = () => {
                               <p className="font-medium">{item.name}</p>
                               <p className="text-sm text-gray-500">SKU: {item.sku}</p>
                             </div>
-                            <Badge variant={item.status === "Low Stock" ? "warning" : "destructive"}>
+                            <CustomBadge variant={item.status === "Low Stock" ? "warning" : "destructive"}>
                               {item.quantity} left
-                            </Badge>
+                            </CustomBadge>
                           </div>
                         ))}
                     </div>
@@ -230,9 +230,9 @@ const ERP: React.FC = () => {
                           <TableCell>{vendor.email}</TableCell>
                           <TableCell>{vendor.category}</TableCell>
                           <TableCell>
-                            <Badge variant={vendor.status === "Active" ? "default" : "secondary"}>
+                            <CustomBadge variant={vendor.status === "Active" ? "default" : "secondary"}>
                               {vendor.status}
-                            </Badge>
+                            </CustomBadge>
                           </TableCell>
                           <TableCell>
                             <Button variant="ghost" size="sm">

@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import { CustomBadge } from "@/components/ui/custom-badge";
 import { Menu, User } from "lucide-react";
 import Sidebar from '@/components/layout/Sidebar';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -182,13 +182,13 @@ const HR: React.FC = () => {
                           <TableCell>{employee.email}</TableCell>
                           <TableCell>{formatDate(employee.dateHired)}</TableCell>
                           <TableCell>
-                            <Badge variant={
+                            <CustomBadge variant={
                               employee.status === "Active" ? "success" :
                               employee.status === "On Leave" ? "warning" : 
                               "secondary"
                             }>
                               {employee.status}
-                            </Badge>
+                            </CustomBadge>
                           </TableCell>
                           <TableCell>
                             <Button variant="ghost" size="sm">
@@ -212,9 +212,9 @@ const HR: React.FC = () => {
                       {['Engineering', 'Marketing', 'Sales', 'Human Resources', 'Finance'].map(dept => (
                         <div key={dept} className="flex justify-between items-center">
                           <p className="text-gray-600">{dept}</p>
-                          <Badge variant="secondary">
+                          <CustomBadge variant="secondary">
                             {employeeData.filter(emp => emp.department === dept).length}
-                          </Badge>
+                          </CustomBadge>
                         </div>
                       ))}
                     </div>
@@ -229,21 +229,21 @@ const HR: React.FC = () => {
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
                         <p className="text-gray-600">Active</p>
-                        <Badge variant="success">
+                        <CustomBadge variant="success">
                           {employeeData.filter(emp => emp.status === "Active").length}
-                        </Badge>
+                        </CustomBadge>
                       </div>
                       <div className="flex justify-between items-center">
                         <p className="text-gray-600">On Leave</p>
-                        <Badge variant="warning">
+                        <CustomBadge variant="warning">
                           {employeeData.filter(emp => emp.status === "On Leave").length}
-                        </Badge>
+                        </CustomBadge>
                       </div>
                       <div className="flex justify-between items-center">
                         <p className="text-gray-600">Inactive</p>
-                        <Badge variant="secondary">
+                        <CustomBadge variant="secondary">
                           {employeeData.filter(emp => emp.status === "Inactive").length}
-                        </Badge>
+                        </CustomBadge>
                       </div>
                     </div>
                   </CardContent>
@@ -320,13 +320,13 @@ const HR: React.FC = () => {
                           <TableCell>{formatDate(request.startDate)}</TableCell>
                           <TableCell>{formatDate(request.endDate)}</TableCell>
                           <TableCell>
-                            <Badge variant={
+                            <CustomBadge variant={
                               request.status === "Approved" ? "success" :
                               request.status === "Pending" ? "warning" : 
                               "destructive"
                             }>
                               {request.status}
-                            </Badge>
+                            </CustomBadge>
                           </TableCell>
                           <TableCell>
                             <div className="flex space-x-2">

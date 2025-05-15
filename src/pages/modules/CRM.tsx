@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { CustomBadge } from "@/components/ui/custom-badge";
 import { Menu, User } from "lucide-react";
 import Sidebar from '@/components/layout/Sidebar';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -188,7 +189,7 @@ const CRM: React.FC = () => {
                           <TableCell>{lead.email}</TableCell>
                           <TableCell>{lead.phone}</TableCell>
                           <TableCell>
-                            <Badge variant={
+                            <CustomBadge variant={
                               lead.status === "New" ? "default" :
                               lead.status === "Contacted" ? "secondary" :
                               lead.status === "Qualified" ? "success" :
@@ -196,7 +197,7 @@ const CRM: React.FC = () => {
                               "destructive"
                             }>
                               {lead.status}
-                            </Badge>
+                            </CustomBadge>
                           </TableCell>
                           <TableCell>
                             <div className="flex items-center">
@@ -229,33 +230,33 @@ const CRM: React.FC = () => {
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
                         <p className="text-gray-600">New</p>
-                        <Badge variant="default">
+                        <CustomBadge variant="default">
                           {leadData.filter(lead => lead.status === "New").length}
-                        </Badge>
+                        </CustomBadge>
                       </div>
                       <div className="flex justify-between items-center">
                         <p className="text-gray-600">Contacted</p>
-                        <Badge variant="secondary">
+                        <CustomBadge variant="secondary">
                           {leadData.filter(lead => lead.status === "Contacted").length}
-                        </Badge>
+                        </CustomBadge>
                       </div>
                       <div className="flex justify-between items-center">
                         <p className="text-gray-600">Qualified</p>
-                        <Badge variant="success">
+                        <CustomBadge variant="success">
                           {leadData.filter(lead => lead.status === "Qualified").length}
-                        </Badge>
+                        </CustomBadge>
                       </div>
                       <div className="flex justify-between items-center">
                         <p className="text-gray-600">Negotiation</p>
-                        <Badge variant="warning">
+                        <CustomBadge variant="warning">
                           {leadData.filter(lead => lead.status === "Negotiation").length}
-                        </Badge>
+                        </CustomBadge>
                       </div>
                       <div className="flex justify-between items-center">
                         <p className="text-gray-600">Lost</p>
-                        <Badge variant="destructive">
+                        <CustomBadge variant="destructive">
                           {leadData.filter(lead => lead.status === "Lost").length}
-                        </Badge>
+                        </CustomBadge>
                       </div>
                     </div>
                   </CardContent>
@@ -337,9 +338,9 @@ const CRM: React.FC = () => {
                           <TableCell>{customer.email}</TableCell>
                           <TableCell>{customer.phone}</TableCell>
                           <TableCell>
-                            <Badge variant={customer.status === "Active" ? "success" : "secondary"}>
+                            <CustomBadge variant={customer.status === "Active" ? "success" : "secondary"}>
                               {customer.status}
-                            </Badge>
+                            </CustomBadge>
                           </TableCell>
                           <TableCell>${customer.value.toLocaleString()}</TableCell>
                           <TableCell>
