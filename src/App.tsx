@@ -13,7 +13,7 @@ import ERP from "./pages/modules/ERP";
 import CRM from "./pages/modules/CRM";
 import HR from "./pages/modules/HR";
 import Calendar from "./pages/modules/Calendar";
-import Accounting from "./pages/modules/Accounting";
+import Accounting from "./pages/modules/accounting";
 import SmartDashboard from "./pages/modules/SmartDashboard";
 import Documents from "./pages/modules/Documents";
 import Settings from "./pages/Settings";
