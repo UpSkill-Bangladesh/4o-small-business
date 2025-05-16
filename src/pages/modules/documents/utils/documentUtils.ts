@@ -13,7 +13,7 @@ export const formatDate = (dateString: string): string => {
 };
 
 // Get document icon based on type
-export const getDocumentIcon = (type: string): React.ReactNode => {
+export const getDocumentIcon = (type: string) => {
   switch (type) {
     case 'tax':
       return <FileText className="h-10 w-10 text-green-600" />;
