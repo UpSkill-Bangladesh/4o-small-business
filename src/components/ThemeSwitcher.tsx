@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/hooks/use-theme';
@@ -17,6 +17,7 @@ export function ThemeSwitcher({
   showLabel = false 
 }: ThemeSwitcherProps) {
   const { theme, toggleTheme } = useTheme();
+  const [isHovering, setIsHovering] = useState(false);
   const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   return (
@@ -27,22 +28,17 @@ export function ThemeSwitcher({
             variant={variant} 
             size={size} 
             onClick={toggleTheme}
-            className="hover-scale"
+            className="hover-scale relative"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
           >
-            {isDark ? (
-              <>
-                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Toggle theme</span>
-                {showLabel && <span className="ml-2">{isDark ? 'Light Mode' : 'Dark Mode'}</span>}
-              </>
-            ) : (
-              <>
-                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Toggle theme</span>
-                {showLabel && <span className="ml-2">{isDark ? 'Light Mode' : 'Dark Mode'}</span>}
-              </>
+            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <span className="sr-only">Toggle theme</span>
+            {(showLabel || isHovering) && (
+              <span className="ml-2 opacity-0 scale-95 absolute left-full top-1/2 -translate-y-1/2 whitespace-nowrap bg-background border border-border px-2 py-1 rounded-md text-xs animate-fade-in">
+                {isDark ? 'Light Mode' : 'Dark Mode'}
+              </span>
             )}
           </Button>
         </TooltipTrigger>

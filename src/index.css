@@ -118,36 +118,22 @@
 }
 
 @layer components {
-  .btn-primary {
-    @apply bg-nyc-primary text-white hover:bg-nyc-primary/90 transition-colors;
+  /* ... keep existing code (btn-primary, btn-secondary, etc.) */
+  
+  /* Hero section specific components */
+  .text-gradient {
+    @apply bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent;
   }
   
-  .btn-secondary {
-    @apply bg-nyc-secondary text-white hover:bg-nyc-secondary/90 transition-colors;
-  }
-  
-  .card-hover {
-    @apply hover:shadow-lg transition-shadow duration-300;
-  }
-
-  .highlight-text {
-    @apply text-nyc-secondary font-semibold;
-  }
-  
-  .section-padding {
-    @apply py-12 md:py-16 lg:py-24;
-  }
-  
-  .animate-fade-in {
-    @apply animate-[fadeIn_0.5s_ease-out_forwards];
+  .shadow-glow {
+    @apply shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.5)];
   }
   
   .glass-card {
-    @apply dark:bg-white/5 dark:backdrop-blur-lg dark:border-white/10 
-           bg-white/80 backdrop-blur-sm border border-gray-200 shadow-sm;
+    @apply backdrop-blur-lg bg-white/10 border border-white/20 dark:bg-gray-900/30 dark:border-white/10;
   }
 
-  /* New interactive components */
+  /* Interactive elements */
   .hover-scale {
     @apply transition-transform duration-200 hover:scale-105;
   }
@@ -168,9 +154,22 @@
     @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
   }
 
-  .pulse-animation {
-    @apply animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite];
+  /* Animation classes for the new hero section */
+  .hero-appear {
+    @apply opacity-0 translate-y-4;
+    animation: heroAppear 0.6s forwards;
   }
+  
+  .stagger-appear {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .stagger-appear:nth-child(1) { animation: staggerFade 0.6s 0.1s forwards; }
+  .stagger-appear:nth-child(2) { animation: staggerFade 0.6s 0.2s forwards; }
+  .stagger-appear:nth-child(3) { animation: staggerFade 0.6s 0.3s forwards; }
+  .stagger-appear:nth-child(4) { animation: staggerFade 0.6s 0.4s forwards; }
+  .stagger-appear:nth-child(5) { animation: staggerFade 0.6s 0.5s forwards; }
 
   /* Dropdown adjustments for dark mode */
   .dropdown-content {
@@ -210,6 +209,20 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes heroAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes staggerFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

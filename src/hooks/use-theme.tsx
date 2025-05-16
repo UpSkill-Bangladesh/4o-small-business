@@ -12,7 +12,8 @@ type ThemeProviderProps = {
 type ThemeProviderState = {
   theme: Theme;
   setTheme: (theme: Theme) => void;
-  toggleTheme: () => void; // New function to toggle theme
+  toggleTheme: () => void;
+  systemTheme: 'dark' | 'light';
 };
 
 const ThemeProviderContext = createContext<ThemeProviderState | undefined>(undefined);
@@ -25,6 +26,10 @@ export function ThemeProvider({
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+  );
+  
+  const [systemTheme, setSystemTheme] = useState<'dark' | 'light'>(
+    window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light'
   );
 
   useEffect(() => {
@@ -46,6 +51,8 @@ export function ThemeProvider({
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     
     const handleChange = () => {
+      setSystemTheme(mediaQuery.matches ? 'dark' : 'light');
+      
       if (theme === "system") {
         const root = window.document.documentElement;
         root.classList.remove("light", "dark");
@@ -61,12 +68,15 @@ export function ThemeProvider({
 
   const value = {
     theme,
+    systemTheme,
     setTheme: (theme: Theme) => {
       localStorage.setItem(storageKey, theme);
       setTheme(theme);
     },
     toggleTheme: () => {
-      const newTheme = theme === "dark" ? "light" : "dark";
+      const newTheme = theme === "dark" || (theme === "system" && systemTheme === 'dark') 
+        ? "light" 
+        : "dark";
       localStorage.setItem(storageKey, newTheme);
       setTheme(newTheme);
     },
