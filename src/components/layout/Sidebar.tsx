@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from "@/lib/utils";
+import { useAuth } from '@/contexts/AuthContext';
 import {
   BarChart, 
   Calendar, 
@@ -12,7 +13,8 @@ import {
   User, 
   Users,
   PieChart,
-  FolderOpen
+  FolderOpen,
+  LogOut
 } from 'lucide-react';
 
 interface SidebarItem {
@@ -86,10 +88,21 @@ const Sidebar: React.FC<SidebarProps> = ({
   onClose
 }) => {
   const location = useLocation();
+  const { user, userProfile, signOut } = useAuth();
   
   if (isMobile && !isOpen) {
     return null;
   }
+  
+  // Get user initials for the avatar
+  const getInitials = () => {
+    if (userProfile) {
+      const firstName = userProfile.first_name || '';
+      const lastName = userProfile.last_name || '';
+      return (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+    }
+    return user?.email?.charAt(0).toUpperCase() || 'U';
+  };
   
   return (
     <div
@@ -140,14 +153,24 @@ const Sidebar: React.FC<SidebarProps> = ({
       </div>
       
       <div className="p-4 border-t border-sidebar-border">
-        <div className="flex items-center">
-          <div className="w-8 h-8 rounded-full bg-nyc-tertiary flex items-center justify-center text-white">
-            JD
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <div className="w-8 h-8 rounded-full bg-nyc-tertiary flex items-center justify-center text-white">
+              {getInitials()}
+            </div>
+            <div className="ml-3">
+              <p className="text-sm font-medium text-white">
+                {userProfile?.first_name ? `${userProfile.first_name} ${userProfile.last_name || ''}` : user?.email}
+              </p>
+              <p className="text-xs text-gray-400">{user?.email}</p>
+            </div>
           </div>
-          <div className="ml-3">
-            <p className="text-sm font-medium text-white">John Doe</p>
-            <p className="text-xs text-gray-400">john@example.com</p>
-          </div>
+          <button 
+            onClick={() => signOut()}
+            className="text-gray-400 hover:text-white"
+          >
+            <LogOut className="h-5 w-5" />
+          </button>
         </div>
       </div>
     </div>

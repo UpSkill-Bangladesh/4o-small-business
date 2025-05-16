@@ -1,11 +1,25 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
+import { useAuth } from '@/contexts/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
@@ -22,10 +36,36 @@ const Navbar: React.FC = () => {
             <Link to="/#features" className="text-gray-700 hover:text-nyc-primary transition-colors">Features</Link>
             <Link to="/#pricing" className="text-gray-700 hover:text-nyc-primary transition-colors">Pricing</Link>
             <Link to="/#about" className="text-gray-700 hover:text-nyc-primary transition-colors">About</Link>
-            <Link to="/login" className="text-gray-700 hover:text-nyc-primary transition-colors">Login</Link>
-            <Button asChild>
-              <Link to="/register">Get Started</Link>
-            </Button>
+            
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative rounded-full h-8 w-8 p-0">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem onClick={() => navigate('/profile')}>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                    <span>Dashboard</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Link to="/auth" className="text-gray-700 hover:text-nyc-primary transition-colors">Login</Link>
+                <Button asChild>
+                  <Link to="/auth?tab=register">Get Started</Link>
+                </Button>
+              </>
+            )}
           </nav>
           
           {/* Mobile menu button */}
@@ -62,18 +102,51 @@ const Navbar: React.FC = () => {
               >
                 About
               </Link>
-              <Link 
-                to="/login" 
-                className="text-gray-700 hover:text-nyc-primary transition-colors py-2"
-                onClick={() => setIsOpen(false)}
-              >
-                Login
-              </Link>
-              <Button asChild>
-                <Link to="/register" onClick={() => setIsOpen(false)}>
-                  Get Started
-                </Link>
-              </Button>
+              
+              {user ? (
+                <>
+                  <Link 
+                    to="/profile" 
+                    className="text-gray-700 hover:text-nyc-primary transition-colors py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Profile
+                  </Link>
+                  <Link 
+                    to="/dashboard" 
+                    className="text-gray-700 hover:text-nyc-primary transition-colors py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <Button 
+                    variant="ghost" 
+                    className="justify-start px-0"
+                    onClick={() => {
+                      handleLogout();
+                      setIsOpen(false);
+                    }}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Log out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link 
+                    to="/auth" 
+                    className="text-gray-700 hover:text-nyc-primary transition-colors py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Login
+                  </Link>
+                  <Button asChild>
+                    <Link to="/auth?tab=register" onClick={() => setIsOpen(false)}>
+                      Get Started
+                    </Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         )}

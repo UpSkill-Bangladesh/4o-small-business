@@ -4,10 +4,11 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
+import AuthPage from "./pages/auth/AuthPage";
+import UserProfile from "./pages/UserProfile";
 import BusinessSetup from "./pages/onboarding/BusinessSetup";
 import ERP from "./pages/modules/ERP";
 import CRM from "./pages/modules/CRM";
@@ -23,31 +24,33 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/onboarding" element={<BusinessSetup />} />
-          
-          {/* Dashboard and module routes */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/erp" element={<ERP />} />
-          <Route path="/crm" element={<CRM />} />
-          <Route path="/hr" element={<HR />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/accounting" element={<Accounting />} />
-          <Route path="/smart-dashboard" element={<SmartDashboard />} />
-          <Route path="/documents" element={<Documents />} />
-          <Route path="/settings" element={<Settings />} />
-          
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            
+            {/* Dashboard and module routes */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/onboarding" element={<BusinessSetup />} />
+            <Route path="/erp" element={<ERP />} />
+            <Route path="/crm" element={<CRM />} />
+            <Route path="/hr" element={<HR />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/accounting" element={<Accounting />} />
+            <Route path="/smart-dashboard" element={<SmartDashboard />} />
+            <Route path="/documents" element={<Documents />} />
+            <Route path="/settings" element={<Settings />} />
+            
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
