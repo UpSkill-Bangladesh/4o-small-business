@@ -125,8 +125,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         title: "Account created",
         description: "Please check your email to verify your account."
       });
-
-      return data;
+      
+      // Return void to match the function signature
     } catch (error) {
       console.error('Error in signUp:', error);
       throw error;
@@ -148,8 +148,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         });
         throw error;
       }
-
-      return data;
+      
+      // Return void to match the function signature
     } catch (error) {
       console.error('Error in signIn:', error);
       throw error;

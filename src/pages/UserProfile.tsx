@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,7 +19,7 @@ const UserProfile = () => {
   });
 
   // Update form when userProfile loads
-  React.useEffect(() => {
+  useEffect(() => {
     if (userProfile) {
       setForm({
         first_name: userProfile.first_name || "",
