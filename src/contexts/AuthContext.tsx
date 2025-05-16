@@ -1,5 +1,5 @@
 
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
@@ -28,7 +28,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -126,7 +126,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         description: "Please check your email to verify your account."
       });
       
-      // Return void to match the function signature
     } catch (error) {
       console.error('Error in signUp:', error);
       throw error;
@@ -149,7 +148,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         throw error;
       }
       
-      // Return void to match the function signature
     } catch (error) {
       console.error('Error in signIn:', error);
       throw error;
@@ -189,7 +187,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 };
 
 export const useAuth = () => {
-  const context = React.useContext(AuthContext);
+  const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
