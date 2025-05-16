@@ -48,13 +48,13 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 222.2 47.4% 11.2%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 222.2 47.4% 13.2%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 222.2 47.4% 11.2%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 210 60% 55%;
@@ -93,7 +93,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans transition-colors duration-300;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -136,5 +136,36 @@
   
   .section-padding {
     @apply py-12 md:py-16 lg:py-24;
+  }
+  
+  .animate-fade-in {
+    @apply animate-[fadeIn_0.5s_ease-out_forwards];
+  }
+  
+  .glass-card {
+    @apply dark:bg-white/5 dark:backdrop-blur-lg dark:border-white/10 
+           bg-white/80 backdrop-blur-sm border border-gray-200 shadow-sm;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
