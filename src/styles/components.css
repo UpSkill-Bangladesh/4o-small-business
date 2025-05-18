@@ -1,0 +1,115 @@
+
+@layer components {
+  /* Button variants */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md transition-all transform active:scale-95 hover:shadow-md;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 px-4 py-2 rounded-md transition-all transform active:scale-95 hover:shadow-md;
+  }
+  
+  .btn-outline {
+    @apply border border-input bg-transparent hover:bg-accent hover:text-accent-foreground px-4 py-2 rounded-md transition-colors;
+  }
+  
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground px-4 py-2 rounded-md transition-colors;
+  }
+  
+  /* Card variants */
+  .card-interactive {
+    @apply bg-card text-card-foreground rounded-lg border shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1;
+  }
+  
+  .card-minimal {
+    @apply bg-background text-foreground rounded-lg border hover:border-primary/50 transition-colors;
+  }
+  
+  .card-colorful {
+    @apply bg-gradient-to-br from-primary/5 to-secondary/5 text-foreground rounded-lg border border-primary/10 hover:border-primary/30 transition-colors;
+  }
+  
+  /* Hero section specific components */
+  .text-gradient {
+    @apply bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent dark:from-white dark:to-white/80;
+  }
+  
+  .shadow-glow {
+    @apply shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.5)] transition-shadow;
+  }
+  
+  .glass-card {
+    @apply backdrop-blur-lg bg-white/10 border border-white/20 dark:bg-gray-900/30 dark:border-white/10 rounded-xl;
+  }
+
+  /* Interactive elements */
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-md;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)];
+  }
+  
+  .hover-border {
+    @apply transition-all duration-300 border-transparent hover:border-primary;
+  }
+
+  .interactive-card {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  /* Interactive link underline animation */
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100;
+  }
+  
+  .link-highlight {
+    @apply relative px-1 py-0.5 before:absolute before:inset-0 before:origin-left before:scale-x-0 before:bg-primary/10 before:transition-transform hover:before:scale-x-100 hover:text-primary;
+  }
+
+  /* Dropdown adjustments for dark mode */
+  .dropdown-content {
+    @apply bg-background border border-border shadow-lg rounded-lg z-50;
+  }
+  
+  /* Text visibility - explicit contrast classes */
+  .text-high-contrast {
+    @apply text-foreground dark:text-slate-50;
+  }
+  
+  .text-medium-contrast {
+    @apply text-slate-700 dark:text-slate-300;
+  }
+  
+  .text-low-contrast {
+    @apply text-slate-600 dark:text-slate-400;
+  }
+  
+  /* Form controls with consistent styling */
+  .form-input {
+    @apply bg-background border border-input rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all;
+  }
+  
+  /* Badge with consistent styling */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors;
+  }
+  
+  .badge-primary {
+    @apply bg-primary text-primary-foreground;
+  }
+  
+  .badge-secondary {
+    @apply bg-secondary text-secondary-foreground;
+  }
+  
+  .badge-outline {
+    @apply border border-input bg-background text-foreground;
+  }
+}
