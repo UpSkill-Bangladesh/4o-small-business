@@ -108,6 +108,29 @@
   }
 }
 
+/* Gradient animation for text and backgrounds */
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Spin once animation */
+@keyframes spin-once {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Animation classes */
 .hero-appear {
   @apply opacity-0 translate-y-4;
@@ -152,6 +175,15 @@
 
 .animate-scale-in {
   animation: scaleIn 0.2s ease-out;
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+.animate-spin-once {
+  animation: spin-once 0.5s ease-out forwards;
 }
 
 .shimmer-effect {
