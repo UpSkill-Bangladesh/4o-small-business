@@ -24,14 +24,28 @@ export function ThemeProvider({
   storageKey = "ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  );
+  // Get initial theme from localStorage or use default
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Check for stored preference
+    const storedTheme = localStorage.getItem(storageKey) as Theme | null;
+    if (storedTheme) return storedTheme;
+    
+    // Check for system preference if default is system
+    if (defaultTheme === "system") {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    
+    return defaultTheme;
+  });
   
+  // Track system theme preference separately
   const [systemTheme, setSystemTheme] = useState<'dark' | 'light'>(
     window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light'
   );
 
+  // Apply theme to document root element
   useEffect(() => {
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
@@ -66,17 +80,17 @@ export function ThemeProvider({
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, [theme]);
 
+  // Provide theme control and state to components
   const value = {
     theme,
     systemTheme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
+    setTheme: (newTheme: Theme) => {
+      localStorage.setItem(storageKey, newTheme);
+      setTheme(newTheme);
     },
     toggleTheme: () => {
-      const newTheme = theme === "dark" || (theme === "system" && systemTheme === 'dark') 
-        ? "light" 
-        : "dark";
+      const currentIsDark = theme === "dark" || (theme === "system" && systemTheme === 'dark');
+      const newTheme = currentIsDark ? "light" : "dark";
       localStorage.setItem(storageKey, newTheme);
       setTheme(newTheme);
     },

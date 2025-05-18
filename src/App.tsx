@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import AuthPage from "./pages/auth/AuthPage";
@@ -33,6 +34,11 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <TooltipProvider>
+        {/* Fixed theme switcher for easy access */}
+        <div className="fixed top-4 right-4 z-50">
+          <ThemeSwitcher variant="ghost" className="bg-background/70 backdrop-blur-md border shadow-sm hover:shadow-md" />
+        </div>
+        
         <Toaster />
         <Sonner />
         <BrowserRouter>

@@ -1,59 +1,85 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface TypewriterProps {
   phrases: { text: string }[];
   delay?: number;
   cursor?: boolean;
+  className?: string;
+  cursorClassName?: string;
+  speed?: { type: number; delete: number; pause: number };
 }
 
 const TypewriterEffect: React.FC<TypewriterProps> = ({ 
   phrases, 
   delay = 3000,
-  cursor = true 
+  cursor = true,
+  className = '',
+  cursorClassName = 'animate-pulse',
+  speed = { type: 150, delete: 80, pause: 3000 }
 }) => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(150);
+  const [typingSpeed, setTypingSpeed] = useState(speed.type);
+  const [isPaused, setIsPaused] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const charIndex = useRef(0);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      const currentPhrase = phrases[currentPhraseIndex].text;
-      
-      if (!isDeleting && currentText === currentPhrase) {
-        // Pause at complete phrase
-        setTypingSpeed(delay);
-        setIsDeleting(true);
-        return;
-      } 
-      
-      if (isDeleting && currentText === '') {
-        // Move to next phrase
-        setIsDeleting(false);
-        setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
-        setTypingSpeed(150);
-        return;
-      }
-
-      // Calculate next text
-      const delta = isDeleting ? 80 : 150;
-      setTypingSpeed(delta);
-      
-      if (isDeleting) {
-        setCurrentText(currentPhrase.substring(0, currentText.length - 1));
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    
+    const currentPhrase = phrases[currentPhraseIndex].text;
+    
+    const typeNextChar = () => {
+      if (!isDeleting) {
+        // Typing
+        charIndex.current += 1;
+        setCurrentText(currentPhrase.substring(0, charIndex.current));
+        
+        // Check if done typing
+        if (charIndex.current >= currentPhrase.length) {
+          setIsPaused(true);
+          setTypingSpeed(speed.pause);
+          timeoutRef.current = setTimeout(() => {
+            setIsPaused(false);
+            setIsDeleting(true);
+            setTypingSpeed(speed.delete);
+          }, speed.pause);
+          return;
+        }
+        
+        // Random typing speed variation for realism
+        const randomSpeed = Math.random() * 50 + speed.type;
+        setTypingSpeed(randomSpeed);
       } else {
-        setCurrentText(currentPhrase.substring(0, currentText.length + 1));
+        // Deleting
+        charIndex.current -= 1;
+        setCurrentText(currentPhrase.substring(0, charIndex.current));
+        
+        // Check if done deleting
+        if (charIndex.current <= 0) {
+          setIsDeleting(false);
+          setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+          setTypingSpeed(speed.type);
+          return;
+        }
+        
+        setTypingSpeed(speed.delete);
       }
-    }, typingSpeed);
+    };
 
-    return () => clearTimeout(timeout);
-  }, [currentText, isDeleting, currentPhraseIndex, phrases, delay, typingSpeed]);
+    timeoutRef.current = setTimeout(typeNextChar, typingSpeed);
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [currentText, isDeleting, currentPhraseIndex, phrases, speed.delete, speed.pause, speed.type, isPaused]);
 
   return (
-    <span className="inline-block min-w-[180px]">
+    <span className={`inline-block ${className}`}>
       {currentText}
-      {cursor && <span className="animate-pulse">|</span>}
+      {cursor && <span className={cursorClassName}>|</span>}
     </span>
   );
 };
