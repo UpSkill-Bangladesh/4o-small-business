@@ -79,6 +79,35 @@
   }
 }
 
+/* Rainbow text animation */
+@keyframes rainbowText {
+  0% { color: #ff73b5; }
+  20% { color: #ffa01e; }
+  40% { color: #ffde59; }
+  60% { color: #5dc970; }
+  80% { color: #5e95ff; }
+  100% { color: #d783ff; }
+}
+
+/* Colorful shadow animation */
+@keyframes colorfulShadow {
+  0% { box-shadow: 0 5px 15px rgba(255, 115, 181, 0.5); }
+  25% { box-shadow: 0 5px 15px rgba(255, 160, 30, 0.5); }
+  50% { box-shadow: 0 5px 15px rgba(93, 201, 112, 0.5); }
+  75% { box-shadow: 0 5px 15px rgba(94, 149, 255, 0.5); }
+  100% { box-shadow: 0 5px 15px rgba(215, 131, 255, 0.5); }
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
 /* Animation classes */
 .hero-appear {
   @apply opacity-0 translate-y-4;
@@ -100,6 +129,22 @@
   animation: buttonPulse 1.5s infinite;
 }
 
+.bounce-animation {
+  animation: bounce 3s ease-in-out infinite;
+}
+
+.float-animation {
+  animation: floatUp 4s ease-in-out infinite;
+}
+
+.rainbow-text {
+  animation: rainbowText 8s linear infinite;
+}
+
+.colorful-shadow {
+  animation: colorfulShadow 8s linear infinite;
+}
+
 /* Animation utilities for general use */
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out;
@@ -107,4 +152,10 @@
 
 .animate-scale-in {
   animation: scaleIn 0.2s ease-out;
+}
+
+.shimmer-effect {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }

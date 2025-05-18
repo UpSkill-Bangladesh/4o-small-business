@@ -32,15 +32,39 @@
   
   /* Hero section specific components */
   .text-gradient {
-    @apply bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent dark:from-white dark:to-white/80;
+    @apply bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 bg-clip-text text-transparent dark:from-purple-300 dark:via-pink-300 dark:to-orange-300;
+  }
+  
+  .text-gradient-blue {
+    @apply bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent dark:from-blue-300 dark:via-cyan-300 dark:to-teal-300;
+  }
+  
+  .text-gradient-rainbow {
+    @apply bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 bg-clip-text text-transparent dark:from-red-300 dark:via-yellow-300 dark:to-green-300;
   }
   
   .shadow-glow {
     @apply shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.5)] transition-shadow;
   }
   
+  .shadow-glow-blue {
+    @apply shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] transition-shadow;
+  }
+  
+  .shadow-glow-purple {
+    @apply shadow-[0_0_15px_rgba(168,85,247,0.3)] hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] transition-shadow;
+  }
+  
+  .shadow-glow-pink {
+    @apply shadow-[0_0_15px_rgba(236,72,153,0.3)] hover:shadow-[0_0_25px_rgba(236,72,153,0.5)] transition-shadow;
+  }
+  
   .glass-card {
     @apply backdrop-blur-lg bg-white/10 border border-white/20 dark:bg-gray-900/30 dark:border-white/10 rounded-xl;
+  }
+  
+  .glass-colorful {
+    @apply backdrop-blur-lg bg-gradient-to-br from-white/10 to-white/5 border border-white/20 dark:from-gray-900/50 dark:to-gray-900/30 dark:border-white/5 rounded-xl;
   }
 
   /* Interactive elements */
@@ -60,8 +84,29 @@
     @apply transition-all duration-300 border-transparent hover:border-primary;
   }
 
+  .hover-rotate {
+    @apply transition-all duration-500 hover:rotate-3;
+  }
+
+  .hover-bright {
+    @apply transition-all duration-300 hover:brightness-110 hover:saturate-150;
+  }
+
   .interactive-card {
     @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg border border-transparent hover:border-primary/20;
+  }
+
+  .card-hover-colorful:hover {
+    @apply bg-gradient-to-br from-blue-500/5 to-purple-500/5;
+  }
+
+  .card-hover-glow:hover {
+    @apply shadow-[0_5px_20px_rgba(59,130,246,0.3)];
   }
   
   /* Interactive link underline animation */
@@ -111,5 +156,22 @@
   
   .badge-outline {
     @apply border border-input bg-background text-foreground;
+  }
+
+  /* Colorful backgrounds */
+  .bg-gradient-blue-purple {
+    @apply bg-gradient-to-br from-blue-500 to-purple-500;
+  }
+  
+  .bg-gradient-orange-pink {
+    @apply bg-gradient-to-br from-orange-500 to-pink-500;
+  }
+  
+  .bg-gradient-green-teal {
+    @apply bg-gradient-to-br from-green-500 to-teal-500;
+  }
+  
+  .bg-gradient-blue-cyan {
+    @apply bg-gradient-to-br from-blue-500 to-cyan-500;
   }
 }
